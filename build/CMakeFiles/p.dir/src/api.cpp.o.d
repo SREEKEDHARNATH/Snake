@@ -331,7 +331,8 @@ CMakeFiles/p.dir/src/api.cpp.o: \
  /usr/include/SDL2/SDL_locale.h /usr/include/SDL2/SDL_misc.h \
  /home/sree/12-weeks-projects/Snake/include/window.h \
  /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_image.h \
- /usr/include/SDL2/SDL_ttf.h /usr/include/c++/16/iostream \
- /usr/include/c++/16/ostream /usr/include/c++/16/bits/ostream_print.h \
+ /usr/include/SDL2/SDL_surface.h /usr/include/SDL2/SDL_ttf.h \
+ /usr/include/c++/16/iostream /usr/include/c++/16/ostream \
+ /usr/include/c++/16/bits/ostream_print.h \
  /usr/include/c++/16/bits/ostream.tcc /usr/include/c++/16/istream \
  /usr/include/c++/16/bits/istream.tcc

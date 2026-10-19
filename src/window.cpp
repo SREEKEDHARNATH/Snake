@@ -23,7 +23,7 @@ namespace window {
         }
         api::image img("assets/images/blue-square.jpg");
         api::font f("assets/fonts/Montserrat-BoldItalic.ttf", 32);
-
+        api::text t(f, "Hello");
         SDL_Event e;
         bool running=true;
         while (running){
@@ -53,14 +53,10 @@ namespace window {
             if (keylistener::isPressed(SDLK_ESCAPE)){
                 running=false;
             }
-            if (keylistener::isPressed(SDLK_a)){
-                std::cout << "You pressed a\n";
-            }if (mouselistener::isPressed(SDL_BUTTON_LEFT)){
-                std::cout << "You pressed left mouse button\n";
-            }
 
             SDL_RenderClear(getRenderer());
             img.draw();
+            t.draw();
             SDL_RenderPresent(getRenderer());
 
             keylistener::update();

@@ -52,6 +52,7 @@ CMakeFiles/p.dir/src/api.cpp.o: /home/sree/12-weeks-projects/Snake/src/api.cpp \
   /usr/include/SDL2/SDL_thread.h \
   /usr/include/SDL2/SDL_timer.h \
   /usr/include/SDL2/SDL_touch.h \
+  /usr/include/SDL2/SDL_ttf.h \
   /usr/include/SDL2/SDL_version.h \
   /usr/include/SDL2/SDL_video.h \
   /usr/include/SDL2/begin_code.h \
@@ -980,6 +981,7 @@ CMakeFiles/p.dir/src/window.cpp.o: /home/sree/12-weeks-projects/Snake/src/window
   /usr/include/SDL2/SDL_thread.h \
   /usr/include/SDL2/SDL_timer.h \
   /usr/include/SDL2/SDL_touch.h \
+  /usr/include/SDL2/SDL_ttf.h \
   /usr/include/SDL2/SDL_version.h \
   /usr/include/SDL2/SDL_video.h \
   /usr/include/SDL2/begin_code.h \
@@ -1657,10 +1659,6 @@ CMakeFiles/p.dir/src/listeners.cpp.o:
 
 /usr/include/limits.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/x86gprintrin.h:
-
-/usr/include/inttypes.h:
-
 /usr/include/gnu/stubs-64.h:
 
 /usr/lib/libSDL2.so:
@@ -1731,9 +1729,9 @@ CMakeFiles/p.dir/src/listeners.cpp.o:
 
 /usr/include/c++/16/memory:
 
-/usr/include/bits/types/struct_itimerspec.h:
+/usr/include/c++/16/x86_64-pc-linux-gnu/bits/c++allocator.h:
 
-/usr/include/bits/struct_rwlock.h:
+/usr/include/c++/16/math.h:
 
 /usr/include/bits/types/mbstate_t.h:
 
@@ -1812,6 +1810,10 @@ CMakeFiles/p.dir/src/listeners.cpp.o:
 /usr/include/bits/pthread_stack_min-dynamic.h:
 
 /usr/include/bits/posix2_lim.h:
+
+/usr/include/bits/struct_rwlock.h:
+
+/usr/include/bits/types/struct_itimerspec.h:
 
 /usr/include/bits/long-double.h:
 
@@ -2070,6 +2072,12 @@ CMakeFiles/p.dir/src/window.cpp.o:
 /usr/include/SDL2/SDL_metal.h:
 
 /usr/include/SDL2/SDL_thread.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/x86gprintrin.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/SDL2/SDL_ttf.h:
 
 /usr/include/SDL2/SDL_filesystem.h:
 
@@ -2444,7 +2452,3 @@ CMakeFiles/p.dir/src/window.cpp.o:
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/prfchwintrin.h:
 
 /usr/include/c++/16/istream:
-
-/usr/include/c++/16/x86_64-pc-linux-gnu/bits/c++allocator.h:
-
-/usr/include/c++/16/math.h:
