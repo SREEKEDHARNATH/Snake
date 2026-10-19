@@ -2,6 +2,7 @@
 #include "api.h"
 #include "listeners.h"
 #include <SDL.h>
+#include <SDL_audio.h>
 #include <SDL_error.h>
 #include <SDL_events.h>
 #include <SDL_image.h>
@@ -13,15 +14,24 @@
 #include <SDL_ttf.h>
 #include <SDL_video.h>
 #include <iostream>
+#include <map>
+#include <random>
+#include <string>
 #include <utility>
 #include <vector>
 std::pair<bool, const char*> init();
 
 class snake{
     std::vector<std::pair<int, int>> pos;
-    int w=32,h=32;
-    int vel=32;
-    int size=10;
+    const int w=32;
+    const int h=32;
+    const int vel=32;
+    int size=3;
+    SDL_Rect appledstrect={320,320,32,32};
+    std::mt19937 gen;
+    std::uniform_int_distribution<int> distribX;
+    std::uniform_int_distribution<int> distribY;
+    
     public:
         int dir[2]={1,0};
         snake(){
@@ -33,11 +43,50 @@ class snake{
                 a.second=curY;
                 curX+=w;
             }
+            std::random_device rd;
+            gen = std::mt19937(rd());
+
+            int lastX;
+            for (lastX=0;lastX<window::getW();lastX+=32);
+            lastX-=32;
+            distribX = std::uniform_int_distribution<int>(0,lastX/32);
+
+            int lastY;
+            for (lastY=0;lastY<window::getH();lastY+=32);
+            lastY-=32;
+            distribY = std::uniform_int_distribution<int>(0,lastY/32);
+            
         }
-        bool draw(api::image& head, api::image& body){
+        bool draw(api::image& head, api::image& body, api::image& apple, api::text& t, api::soundeffect se){
+            static int sc=0;
+
             if (pos[size-1].second < 0 || pos[size-1].second>window::getH()){return false;}
             if (pos[size-1].first < 0 || pos[size-1].first>window::getW()){return false;}
+            
+            if (appledstrect.x==-100){
+                int ax= distribX(gen)*32;
+                int ay= distribY(gen)*32;
+                std::map<int,bool> allx;
+                std::map<int,bool> ally;
+                for (int i=0;i<size;i++){
+                    allx[pos[i].first]=true;
+                    ally[pos[i].second]=true;
+                }
+                for (int i=0;i<allx.size();i++){
+                    if (allx[ax]){
+                        int ax= distribX(gen)*32;
+                    }
+                    if (ally[ay]){
+                        int ay= distribY(gen)*32;
+                    }
+                }
+                appledstrect.x=ax;
+                appledstrect.y=ay;
+            }
 
+            apple.getRect()=appledstrect;
+            apple.draw();
+            
             auto& he = head.getRect();
             auto& bo = body.getRect();
             
@@ -46,18 +95,33 @@ class snake{
 
             he.w=w;
             he.h=h;
+            auto old=pos[0];
             
             he.x=pos[size-1].first;
             he.y=pos[size-1].second;
-            
             head.draw();
             for (int i=0;i<size-1;i++){
                 bo.x=pos[i].first;
                 bo.y=pos[i].second;
                 body.draw();
-            }
-            for (int i=0;i<size-1;i++){
                 pos[i]=pos[i+1];
+            }
+
+            if (SDL_HasIntersection(&he, &appledstrect)){
+                se.play();
+                appledstrect.x=-100;
+                std::vector<std::pair<int, int>> newpos;
+                newpos.resize(size+1);
+                for (int i=0;i<size;i++){
+                    newpos[i+1]=pos[i];
+                }
+                newpos[0]=old;
+                pos.clear();
+                pos=newpos;
+                size++;
+                sc++;
+                std::string str="Score: " + std::to_string(sc);
+                t.setText(str.c_str());
             }
             pos[size-1].first+=vel*dir[0];
             pos[size-1].second+=vel*dir[1];
@@ -77,14 +141,24 @@ namespace window {
             std::cerr << i.second << "\n";
             return;
         }
-        api::image img("assets/images/blue-square.jpg");
-        api::image img2("assets/images/blue-square.jpg");
+        api::image body("assets/images/body.jpg");
+        api::image head("assets/images/head.jpg");
+        api::image apple("assets/images/apple.jpg");
         api::font f("assets/fonts/Montserrat-BoldItalic.ttf", 32);
-        api::text t(f, "Hello");
+        api::text t(f,"Score: 0");
         SDL_Event e;
 
+        constexpr int mVol=30,seVol=20;
+        api::music m("assets/music/bg.mp3");
+        m.setVolume(mVol);
+        api::soundeffect se("assets/sound-effect/apple.mp3");
+        se.setVolume(seVol);
+        m.play();
         snake s;
+
+        bool muted=false;
         bool running=true;
+
         while (running){
             while (SDL_PollEvent(&e)) {
                 switch (e.type) {
@@ -136,10 +210,24 @@ namespace window {
                     s.dir[1]=0;
                 }
             }
+
+            if (keylistener::isPressed(SDLK_m)){
+                if (muted){
+                    m.setVolume(mVol);
+                    se.setVolume(seVol);
+                    muted=false;
+                }
+                else {
+                    m.setVolume(0);
+                    se.setVolume(0);
+                    muted=true;
+                }
+            }
+
             SDL_RenderClear(getRenderer());
-            t.draw();
             if (running){
-                running = s.draw(img, img2);
+                t.draw();
+                running = s.draw(body, head, apple, t, se);
             }
             SDL_RenderPresent(getRenderer());
 
@@ -166,10 +254,10 @@ namespace window {
         return rend;
     }
     int getW(){
-        return 1280;
+        return 1024;
     }
     int getH(){
-        return 720;
+        return 576;
     }
     const char* getTitle(){
         return "Snake";
