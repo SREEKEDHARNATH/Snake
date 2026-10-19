@@ -1,9 +1,11 @@
 #include "window.h"
 #include "api.h"
+#include "listeners.h"
 #include <SDL.h>
 #include <SDL_error.h>
 #include <SDL_events.h>
 #include <SDL_image.h>
+#include <SDL_keycode.h>
 #include <SDL_render.h>
 #include <SDL_video.h>
 #include <iostream>
@@ -26,13 +28,34 @@ namespace window {
                     case SDL_QUIT:
                         running=false;
                         break;
+                    case SDL_KEYDOWN:
+                    case SDL_KEYUP:
+                        keylistener::reg(e.key);
+                        break;
+                    case SDL_MOUSEMOTION:
+                        mouselistener::reg(e.motion);
+                        break;
+                    case SDL_MOUSEBUTTONDOWN:
+                    case SDL_MOUSEBUTTONUP:
+                        mouselistener::reg(e.button);
+                        break;
+                    case SDL_MOUSEWHEEL:
+                        mouselistener::reg(e.wheel);
+                        break;
+
                 }
+            }
+
+            if (keylistener::isPressed(SDLK_ESCAPE)){
+                running=false;
             }
 
             SDL_RenderClear(getRenderer());
             img.draw();
             SDL_RenderPresent(getRenderer());
 
+            keylistener::update();
+            mouselistener::update();
             SDL_Delay(16);
         }
     }

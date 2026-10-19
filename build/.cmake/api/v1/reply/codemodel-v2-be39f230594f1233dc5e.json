@@ -1,0 +1,123 @@
+{
+	"configurations" : 
+	[
+		{
+			"abstractTargets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "PkgConfig::FMT::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PkgConfig__FMT-e341078ee933f8ea1af1.json",
+					"name" : "PkgConfig::FMT",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "PkgConfig::SDL2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PkgConfig__SDL2-919847dd8dfdb297c035.json",
+					"name" : "PkgConfig::SDL2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "PkgConfig::SDL2_IMAGE::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PkgConfig__SDL2_IMAGE-218ef5e9c147a612ac7d.json",
+					"name" : "PkgConfig::SDL2_IMAGE",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "PkgConfig::SDL2_MIXER::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PkgConfig__SDL2_MIXER-0671913d024f2d7f4990.json",
+					"name" : "PkgConfig::SDL2_MIXER",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "PkgConfig::SDL2_TTF::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PkgConfig__SDL2_TTF-8f623cfbacadf4834526.json",
+					"name" : "PkgConfig::SDL2_TTF",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "box2d::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-box2d-1ee8d379c6859872ffad.json",
+					"name" : "box2d",
+					"projectIndex" : 0
+				}
+			],
+			"directories" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					],
+					"build" : ".",
+					"jsonFile" : "directory-.-b23a0b23c080df4d29ba.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "p",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "p::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-p-d9742af354fe425ea597.json",
+					"name" : "p",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/sree/12-weeks-projects/Snake/build",
+		"source" : "/home/sree/12-weeks-projects/Snake"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 11
+	}
+}
