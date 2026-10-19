@@ -8,13 +8,68 @@
 #include <SDL_mixer.h>
 #include <SDL_keycode.h>
 #include <SDL_mouse.h>
+#include <SDL_rect.h>
 #include <SDL_render.h>
 #include <SDL_ttf.h>
 #include <SDL_video.h>
 #include <iostream>
 #include <utility>
+#include <vector>
 std::pair<bool, const char*> init();
 
+class snake{
+    std::vector<std::pair<int, int>> pos;
+    int w=32,h=32;
+    int vel=32;
+    int size=10;
+    public:
+        int dir[2]={1,0};
+        snake(){
+            int curX=0,curY=0;
+            pos.resize(size);
+            for (int i=0;i<size;i++){
+                auto& a = pos[i];
+                a.first=curX;
+                a.second=curY;
+                curX+=w;
+            }
+        }
+        bool draw(api::image& head, api::image& body){
+            if (pos[size-1].second < 0 || pos[size-1].second>window::getH()){return false;}
+            if (pos[size-1].first < 0 || pos[size-1].first>window::getW()){return false;}
+
+            auto& he = head.getRect();
+            auto& bo = body.getRect();
+            
+            bo.w=w;
+            bo.h=h;
+
+            he.w=w;
+            he.h=h;
+            
+            he.x=pos[size-1].first;
+            he.y=pos[size-1].second;
+            
+            head.draw();
+            for (int i=0;i<size-1;i++){
+                bo.x=pos[i].first;
+                bo.y=pos[i].second;
+                body.draw();
+            }
+            for (int i=0;i<size-1;i++){
+                pos[i]=pos[i+1];
+            }
+            pos[size-1].first+=vel*dir[0];
+            pos[size-1].second+=vel*dir[1];
+            
+            for (int i=0;i<size-1;i++){
+                if (pos[i]==pos[size-1]){
+                    return false;
+                }
+            }
+            return true;
+        }
+};
 namespace window {
     void run(){
         auto i = init();
@@ -23,9 +78,12 @@ namespace window {
             return;
         }
         api::image img("assets/images/blue-square.jpg");
+        api::image img2("assets/images/blue-square.jpg");
         api::font f("assets/fonts/Montserrat-BoldItalic.ttf", 32);
         api::text t(f, "Hello");
         SDL_Event e;
+
+        snake s;
         bool running=true;
         while (running){
             while (SDL_PollEvent(&e)) {
@@ -51,18 +109,43 @@ namespace window {
                 }
             }
 
-            if (keylistener::isPressed(SDLK_ESCAPE)){
+            if (keylistener::isDown(SDLK_ESCAPE)){
                 running=false;
             }
-
+            if (keylistener::isDown(SDLK_UP)){
+                if (s.dir[0]){
+                    s.dir[1]=-1;
+                    s.dir[0]=0;
+                }
+            }
+            else if (keylistener::isDown(SDLK_DOWN)){
+                if (s.dir[0]){
+                    s.dir[1]=1;
+                    s.dir[0]=0;
+                }
+            }
+            else if (keylistener::isDown(SDLK_RIGHT)){
+                if (s.dir[1]){
+                    s.dir[0]=1;
+                    s.dir[1]=0;
+                }
+            }
+            else if (keylistener::isDown(SDLK_LEFT)){
+                if (s.dir[1]){
+                    s.dir[0]=-1;
+                    s.dir[1]=0;
+                }
+            }
             SDL_RenderClear(getRenderer());
-            img.draw();
             t.draw();
+            if (running){
+                running = s.draw(img, img2);
+            }
             SDL_RenderPresent(getRenderer());
 
             keylistener::update();
             mouselistener::update();
-            SDL_Delay(16);
+            SDL_Delay(192);
         }
     }
     void quit(){

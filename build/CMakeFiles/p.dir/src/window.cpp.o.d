@@ -339,4 +339,7 @@ CMakeFiles/p.dir/src/window.cpp.o: \
  /usr/include/c++/16/ostream /usr/include/c++/16/bits/ostream_print.h \
  /usr/include/c++/16/bits/ostream.tcc /usr/include/c++/16/istream \
  /usr/include/c++/16/bits/istream.tcc /usr/include/c++/16/utility \
- /usr/include/c++/16/bits/stl_relops.h /usr/include/c++/16/bits/intcmp.h
+ /usr/include/c++/16/bits/stl_relops.h /usr/include/c++/16/bits/intcmp.h \
+ /usr/include/c++/16/vector /usr/include/c++/16/bits/stl_vector.h \
+ /usr/include/c++/16/bits/stl_bvector.h \
+ /usr/include/c++/16/bits/vector.tcc

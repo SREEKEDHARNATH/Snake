@@ -13,7 +13,6 @@
             "externalConsole": false,
             "MIMode": "gdb",
             "miDebuggerPath": "/usr/bin/gdb",
-            "noDebug": true,
             "preLaunchTask": "CMake: Build"
         }
     ]
