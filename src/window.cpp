@@ -15,6 +15,7 @@
 #include <SDL_video.h>
 #include <iostream>
 #include <map>
+#include <memory>
 #include <random>
 #include <string>
 #include <utility>
@@ -148,6 +149,16 @@ namespace window {
         api::text t(f,"Score: 0");
         SDL_Event e;
 
+        std::vector<std::shared_ptr<SDL_Texture>> themes;
+        themes.resize(10);
+        for (int i=0;i<10;i++){
+            std::string st = "assets/themes/theme" + std::to_string(i+1) + ".jpg";
+            api::image img(st.c_str());
+            themes[i]=img.getTex();
+        }
+
+        int th=1;
+
         constexpr int mVol=30,seVol=20;
         api::music m("assets/music/bg.mp3");
         m.setVolume(mVol);
@@ -186,6 +197,18 @@ namespace window {
             if (keylistener::isDown(SDLK_ESCAPE)){
                 running=false;
             }
+
+            if (keylistener::isPressed(SDLK_s)){
+                if (th>1){
+                    th--;
+                }
+            }
+            if (keylistener::isPressed(SDLK_w)){
+                if (th<10){
+                    th++;
+                }
+            }
+
             if (keylistener::isDown(SDLK_UP)){
                 if (s.dir[0]){
                     s.dir[1]=-1;
@@ -225,6 +248,7 @@ namespace window {
             }
 
             SDL_RenderClear(getRenderer());
+            SDL_RenderCopy(getRenderer(), themes[th-1].get(), NULL, NULL);
             if (running){
                 t.draw();
                 running = s.draw(body, head, apple, t, se);
