@@ -2,6 +2,7 @@
 #include "window.h"
 #include <SDL2/SDL_image.h>
 #include <SDL_render.h>
+#include <SDL_ttf.h>
 #include <iostream>
 
 namespace api {
@@ -35,5 +36,17 @@ namespace api {
     }
     std::shared_ptr<SDL_Texture> image::getTex(){
         return img;
+    }
+
+    font::font(const char* name, int ptsize){
+        TTF_Font* f=TTF_OpenFont(name, ptsize);
+        if (!f){
+            std::cerr << TTF_GetError() << "\n";
+            return;
+        }
+        fnt.reset(f, TTF_CloseFont);
+    }
+    std::shared_ptr<TTF_Font> font::getFont(){
+        return fnt;
     }
 }

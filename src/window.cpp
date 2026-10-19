@@ -6,7 +6,9 @@
 #include <SDL_events.h>
 #include <SDL_image.h>
 #include <SDL_keycode.h>
+#include <SDL_mouse.h>
 #include <SDL_render.h>
+#include <SDL_ttf.h>
 #include <SDL_video.h>
 #include <iostream>
 #include <utility>
@@ -20,6 +22,8 @@ namespace window {
             return;
         }
         api::image img("assets/images/blue-square.jpg");
+        api::font f("assets/fonts/Montserrat-BoldItalic.ttf", 32);
+
         SDL_Event e;
         bool running=true;
         while (running){
@@ -49,6 +53,11 @@ namespace window {
             if (keylistener::isPressed(SDLK_ESCAPE)){
                 running=false;
             }
+            if (keylistener::isPressed(SDLK_a)){
+                std::cout << "You pressed a\n";
+            }if (mouselistener::isPressed(SDL_BUTTON_LEFT)){
+                std::cout << "You pressed left mouse button\n";
+            }
 
             SDL_RenderClear(getRenderer());
             img.draw();
@@ -62,6 +71,7 @@ namespace window {
     void quit(){
         SDL_DestroyWindow(getWindow());
         SDL_DestroyRenderer(getRenderer());
+        TTF_Quit();
         IMG_Quit();
         SDL_Quit();
     }
@@ -91,6 +101,9 @@ std::pair<bool, const char*> init(){
     }
     if ((IMG_Init(img_flags) & img_flags) != img_flags){
         return {false, IMG_GetError()};
+    }
+    if (TTF_Init()){
+        return {false, TTF_GetError()};
     }
     window::getWindow() = SDL_CreateWindow(window::getTitle(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window::getW(), window::getH(), 0);
     if (!window::getWindow()){

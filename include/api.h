@@ -3,6 +3,8 @@
 #include <SDL_rect.h>
 #include <SDL_render.h>
 #include <memory>
+#include <SDL2/SDL_ttf.h>
+
 namespace api {
     class image{
         std::shared_ptr<SDL_Texture> img;
@@ -13,5 +15,11 @@ namespace api {
             void draw();
             SDL_Rect& getRect();
             std::shared_ptr<SDL_Texture> getTex();
+    };
+    class font{
+        std::shared_ptr<TTF_Font> fnt;
+        public:
+            font(const char* name, int ptsize);
+            std::shared_ptr<TTF_Font> getFont();
     };
 }
