@@ -1,9 +1,11 @@
 #include "api.h"
 #include "window.h"
 #include <SDL2/SDL_image.h>
+#include <SDL_mixer.h>
 #include <SDL_render.h>
 #include <SDL_surface.h>
 #include <SDL_ttf.h>
+#include <algorithm>
 #include <iostream>
 
 namespace api {
@@ -95,5 +97,77 @@ namespace api {
         return dstrect.y;
     }
 
+    music::music(const char* name){
+        Mix_Music* ptr = Mix_LoadMUS(name);
+        if (!ptr){
+            std::cerr << Mix_GetError() << "\n";
+            return;
+        }
+        m.reset(ptr, Mix_FreeMusic);
+    }
 
+    void music::play(bool loops){
+        if (m.get()){
+            if (!Mix_PlayingMusic()){
+                Mix_PlayMusic(m.get(), loops);
+            }
+        }
+    }
+
+    void music::pause(){
+        if (m.get()){
+            if (Mix_PlayingMusic()){
+                Mix_PauseMusic();
+            }
+        }
+    }
+
+    void music::resume(){
+        if (m.get()){
+            if (!Mix_PlayingMusic()){
+                Mix_ResumeMusic();
+            }
+        }
+    }
+
+    void music::halt(){
+        if (m.get()){
+            if (!Mix_PlayingMusic()){
+                Mix_HaltMusic();
+            }
+        }
+    }
+
+    void music::setVolume(Uint8 vol){
+        vol = std::min<Uint8>(vol, 100);
+        if (m.get()){
+            Mix_VolumeMusic(vol);
+        }
+    }
+    std::shared_ptr<Mix_Music> music::getMusic(){
+        return m;
+    }
+
+    soundeffect::soundeffect(const char* name){
+        Mix_Chunk* chunk = Mix_LoadWAV(name);
+        if (!chunk){
+            std::cerr << Mix_GetError() << "\n";
+            return;
+        }
+        c.reset(chunk, Mix_FreeChunk);
+    }
+    void soundeffect::play(bool loops, int channel){
+        if (c.get()){
+            Mix_PlayChannel(channel, c.get(), loops);
+        }
+    }
+    void soundeffect::setVolume(Uint8 vol){
+        vol = std::min<Uint8>(vol, 100);
+        if (c.get()){
+            Mix_VolumeChunk(c.get(), vol);
+        }
+    }
+    std::shared_ptr<Mix_Chunk> soundeffect::getChunk(){
+        return c;
+    }
 }

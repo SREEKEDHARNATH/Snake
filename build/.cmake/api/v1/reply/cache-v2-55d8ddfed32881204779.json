@@ -39,11 +39,11 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel ..."
+					"value" : "Build type for single-configuration generators (Makefile Generators, Ninja, etc.). Typical values: Debug, Release, RelWithDebInfo, MinSizeRel; custom build types may also be defined."
 				}
 			],
 			"type" : "STRING",
-			"value" : ""
+			"value" : "Debug"
 		},
 		{
 			"name" : "CMAKE_CACHEFILE_DIR",
@@ -283,7 +283,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "CMD_AUTHOR=WARN;CMD_DEPRECATED=WARN;CMD_EXPERIMENTAL=WARN;CMD_INSTALL_ABSOLUTE_DESTINATION=IGNORE;CMD_POLICY=WARN;CMD_UNINITIALIZED=IGNORE;CMD_UNUSED_CLI=WARN"
+			"value" : "CMD_AUTHOR=WARN;CMD_DEPRECATED=WARN;CMD_EXPERIMENTAL=WARN;CMD_INSTALL_ABSOLUTE_DESTINATION=IGNORE;CMD_POLICY=WARN;CMD_UNINITIALIZED=IGNORE;CMD_UNUSED_CLI=IGNORE"
 		},
 		{
 			"name" : "CMAKE_DLLTOOL",
@@ -427,11 +427,11 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "Enable/Disable output of compile commands during generation."
+					"value" : "Enable output of a compile_commands.json file listing the exact compiler invocation for each translation unit. Implemented by the Makefile and Ninja generators; ignored elsewhere."
 				}
 			],
 			"type" : "BOOL",
-			"value" : ""
+			"value" : "TRUE"
 		},
 		{
 			"name" : "CMAKE_EXTRA_GENERATOR",

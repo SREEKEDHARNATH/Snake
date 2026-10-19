@@ -34,6 +34,7 @@ CMakeFiles/p.dir/src/api.cpp.o: /home/sree/12-weeks-projects/Snake/src/api.cpp \
   /usr/include/SDL2/SDL_messagebox.h \
   /usr/include/SDL2/SDL_metal.h \
   /usr/include/SDL2/SDL_misc.h \
+  /usr/include/SDL2/SDL_mixer.h \
   /usr/include/SDL2/SDL_mouse.h \
   /usr/include/SDL2/SDL_mutex.h \
   /usr/include/SDL2/SDL_pixels.h \
@@ -145,9 +146,11 @@ CMakeFiles/p.dir/src/api.cpp.o: /home/sree/12-weeks-projects/Snake/src/api.cpp \
   /usr/include/bits/wctype-wchar.h \
   /usr/include/bits/wordsize.h \
   /usr/include/bits/xopen_lim.h \
+  /usr/include/c++/16/algorithm \
   /usr/include/c++/16/backward/auto_ptr.h \
   /usr/include/c++/16/backward/binders.h \
   /usr/include/c++/16/bit \
+  /usr/include/c++/16/bits/algorithmfwd.h \
   /usr/include/c++/16/bits/align.h \
   /usr/include/c++/16/bits/alloc_traits.h \
   /usr/include/c++/16/bits/allocated_ptr.h \
@@ -197,6 +200,7 @@ CMakeFiles/p.dir/src/api.cpp.o: /home/sree/12-weeks-projects/Snake/src/api.cpp \
   /usr/include/c++/16/bits/predefined_ops.h \
   /usr/include/c++/16/bits/ptr_traits.h \
   /usr/include/c++/16/bits/range_access.h \
+  /usr/include/c++/16/bits/ranges_algo.h \
   /usr/include/c++/16/bits/ranges_algobase.h \
   /usr/include/c++/16/bits/ranges_base.h \
   /usr/include/c++/16/bits/ranges_cmp.h \
@@ -212,9 +216,11 @@ CMakeFiles/p.dir/src/api.cpp.o: /home/sree/12-weeks-projects/Snake/src/api.cpp \
   /usr/include/c++/16/bits/stdexcept_except.h \
   /usr/include/c++/16/bits/stdexcept_throw.h \
   /usr/include/c++/16/bits/stdexcept_throwfwd.h \
+  /usr/include/c++/16/bits/stl_algo.h \
   /usr/include/c++/16/bits/stl_algobase.h \
   /usr/include/c++/16/bits/stl_construct.h \
   /usr/include/c++/16/bits/stl_function.h \
+  /usr/include/c++/16/bits/stl_heap.h \
   /usr/include/c++/16/bits/stl_iterator.h \
   /usr/include/c++/16/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/16/bits/stl_iterator_base_types.h \
@@ -226,6 +232,7 @@ CMakeFiles/p.dir/src/api.cpp.o: /home/sree/12-weeks-projects/Snake/src/api.cpp \
   /usr/include/c++/16/bits/streambuf_iterator.h \
   /usr/include/c++/16/bits/string_view.tcc \
   /usr/include/c++/16/bits/stringfwd.h \
+  /usr/include/c++/16/bits/uniform_int_dist.h \
   /usr/include/c++/16/bits/unique_ptr.h \
   /usr/include/c++/16/bits/uses_allocator.h \
   /usr/include/c++/16/bits/uses_allocator_args.h \
@@ -264,6 +271,7 @@ CMakeFiles/p.dir/src/api.cpp.o: /home/sree/12-weeks-projects/Snake/src/api.cpp \
   /usr/include/c++/16/numbers \
   /usr/include/c++/16/ostream \
   /usr/include/c++/16/pstl/execution_defs.h \
+  /usr/include/c++/16/pstl/glue_algorithm_defs.h \
   /usr/include/c++/16/pstl/glue_memory_defs.h \
   /usr/include/c++/16/pstl/pstl_config.h \
   /usr/include/c++/16/stdexcept \
@@ -963,6 +971,7 @@ CMakeFiles/p.dir/src/window.cpp.o: /home/sree/12-weeks-projects/Snake/src/window
   /usr/include/SDL2/SDL_messagebox.h \
   /usr/include/SDL2/SDL_metal.h \
   /usr/include/SDL2/SDL_misc.h \
+  /usr/include/SDL2/SDL_mixer.h \
   /usr/include/SDL2/SDL_mouse.h \
   /usr/include/SDL2/SDL_mutex.h \
   /usr/include/SDL2/SDL_pixels.h \
@@ -1567,10 +1576,6 @@ CMakeFiles/p.dir/src/listeners.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/avx512vpopcntdqintrin.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/wmmintrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/avx512vp2intersectvlintrin.h:
-
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/avx512vp2intersectintrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/avx512vnnivlintrin.h:
@@ -1580,8 +1585,6 @@ CMakeFiles/p.dir/src/listeners.cpp.o:
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/avx512vbmi2vlintrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/avx512vbmi2intrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/avx512ifmavlintrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/avx512fp16vlintrin.h:
 
@@ -1733,6 +1736,22 @@ CMakeFiles/p.dir/src/listeners.cpp.o:
 
 /usr/include/c++/16/math.h:
 
+/usr/include/c++/16/limits:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/prfchwintrin.h:
+
+/usr/include/c++/16/istream:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/tbmintrin.h:
+
+/usr/include/c++/16/iostream:
+
+/usr/include/c++/16/ios:
+
+/usr/include/c++/16/tr1/riemann_zeta.tcc:
+
+/usr/include/c++/16/initializer_list:
+
 /usr/include/bits/types/mbstate_t.h:
 
 /usr/include/bits/types/locale_t.h:
@@ -1761,6 +1780,10 @@ CMakeFiles/p.dir/src/listeners.cpp.o:
 
 /usr/include/c++/16/bits/allocator.h:
 
+/usr/include/c++/16/ext/type_traits.h:
+
+/usr/include/bits/thread-shared-types.h:
+
 /usr/include/c++/16/bits/istream.tcc:
 
 /usr/include/c++/16/cerrno:
@@ -1770,10 +1793,6 @@ CMakeFiles/p.dir/src/listeners.cpp.o:
 /usr/include/bits/stdio_lim.h:
 
 /usr/include/bits/types/__mbstate_t.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/fxsrintrin.h:
-
-/usr/include/bits/select.h:
 
 /usr/include/bits/types/cookie_io_functions_t.h:
 
@@ -1824,12 +1843,6 @@ CMakeFiles/p.dir/src/listeners.cpp.o:
 /usr/include/SDL2/SDL_blendmode.h:
 
 /usr/include/c++/16/bits/iterator_concepts.h:
-
-/usr/lib/libgraphite2.so.3:
-
-/usr/include/c++/16/tr1/bessel_function.tcc:
-
-/usr/include/bits/libm-simd-decl-stubs.h:
 
 /usr/include/bits/libc-header-start.h:
 
@@ -1889,6 +1902,10 @@ CMakeFiles/p.dir/src/listeners.cpp.o:
 
 /usr/include/SDL2/SDL_main.h:
 
+/usr/include/c++/16/clocale:
+
+/usr/include/asm-generic/errno-base.h:
+
 /usr/lib/libtiff.so.6:
 
 /usr/include/SDL2/SDL_log.h:
@@ -1903,9 +1920,15 @@ CMakeFiles/p.dir/src/listeners.cpp.o:
 
 /usr/include/bits/flt-eval-method.h:
 
-/usr/include/SDL2/SDL_messagebox.h:
-
 /usr/include/SDL2/SDL_loadso.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/fxsrintrin.h:
+
+/usr/include/bits/select.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/avx512ifmavlintrin.h:
+
+/usr/include/SDL2/SDL_mixer.h:
 
 CMakeFiles/p.dir/src/api.cpp.o:
 
@@ -1916,10 +1939,6 @@ CMakeFiles/p.dir/src/api.cpp.o:
 /usr/lib/libjxl.so.0.12:
 
 /usr/include/SDL2/SDL_joystick.h:
-
-/usr/include/c++/16/clocale:
-
-/usr/include/asm-generic/errno-base.h:
 
 /usr/include/SDL2/SDL_keyboard.h:
 
@@ -1940,6 +1959,10 @@ CMakeFiles/p.dir/src/api.cpp.o:
 /usr/include/bits/types/struct_FILE.h:
 
 /usr/include/c++/16/bits/stdexcept_except.h:
+
+/usr/include/c++/16/bits/new_throw.h:
+
+/usr/include/c++/16/ext/atomicity.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/pconfigintrin.h:
 
@@ -2079,7 +2102,9 @@ CMakeFiles/p.dir/src/window.cpp.o:
 
 /usr/include/SDL2/SDL_ttf.h:
 
-/usr/include/SDL2/SDL_filesystem.h:
+/usr/include/c++/16/iosfwd:
+
+/usr/include/bits/types/__sigset_t.h:
 
 /usr/include/SDL2/SDL_platform.h:
 
@@ -2104,14 +2129,6 @@ CMakeFiles/p.dir/src/window.cpp.o:
 /usr/lib/libjbig.so.2.2:
 
 /usr/include/SDL2/SDL_render.h:
-
-/usr/include/bits/waitstatus.h:
-
-/usr/include/bits/types/struct___jmp_buf_tag.h:
-
-/usr/include/bits/wchar.h:
-
-/usr/include/SDL2/SDL_atomic.h:
 
 /usr/lib/libsharpyuv.so.0:
 
@@ -2158,6 +2175,14 @@ CMakeFiles/p.dir/src/window.cpp.o:
 /usr/include/bits/mathcalls-helper-functions.h:
 
 /usr/include/c++/16/bits/specfun.h:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/bits/wchar.h:
+
+/usr/include/SDL2/SDL_atomic.h:
+
+/usr/include/bits/types/struct___jmp_buf_tag.h:
 
 /usr/include/SDL2/SDL_pixels.h:
 
@@ -2215,6 +2240,12 @@ CMakeFiles/p.dir/src/window.cpp.o:
 
 /usr/include/bits/xopen_lim.h:
 
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/wmmintrin.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/avx512vp2intersectvlintrin.h:
+
+/usr/include/c++/16/bits/ranges_algo.h:
+
 /usr/include/c++/16/bits/ranges_base.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/movrsintrin.h:
@@ -2223,9 +2254,19 @@ CMakeFiles/p.dir/src/window.cpp.o:
 
 /usr/include/c++/16/bits/uses_allocator_args.h:
 
+/usr/include/c++/16/algorithm:
+
 /usr/include/c++/16/backward/auto_ptr.h:
 
 /usr/include/c++/16/bit:
+
+/usr/lib/libgraphite2.so.3:
+
+/usr/include/c++/16/tr1/bessel_function.tcc:
+
+/usr/include/bits/libm-simd-decl-stubs.h:
+
+/usr/include/c++/16/bits/algorithmfwd.h:
 
 /usr/include/c++/16/bits/alloc_traits.h:
 
@@ -2234,8 +2275,6 @@ CMakeFiles/p.dir/src/window.cpp.o:
 /usr/include/c++/16/bits/basic_ios.tcc:
 
 /usr/include/c++/16/bits/basic_string.h:
-
-/usr/include/c++/16/ios:
 
 /usr/include/bits/types/__fpos_t.h:
 
@@ -2291,10 +2330,6 @@ CMakeFiles/p.dir/src/window.cpp.o:
 
 /usr/include/c++/16/cctype:
 
-/usr/include/c++/16/ext/atomicity.h:
-
-/usr/include/c++/16/bits/new_throw.h:
-
 /usr/include/bits/struct_mutex.h:
 
 /usr/include/c++/16/bits/locale_facets.h:
@@ -2335,8 +2370,6 @@ CMakeFiles/p.dir/src/window.cpp.o:
 
 /usr/include/c++/16/cmath:
 
-/usr/include/c++/16/limits:
-
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/avx2intrin.h:
 
 /usr/include/bits/mathcalls-narrow.h:
@@ -2351,15 +2384,23 @@ CMakeFiles/p.dir/src/window.cpp.o:
 
 /usr/include/c++/16/bits/stdexcept_throw.h:
 
+/usr/include/SDL2/SDL_filesystem.h:
+
+/usr/include/c++/16/bits/stl_algo.h:
+
+/usr/include/c++/16/bits/stl_iterator_base_funcs.h:
+
+/usr/include/c++/16/bits/stl_algobase.h:
+
 /usr/include/c++/16/bits/stl_function.h:
+
+/usr/include/SDL2/SDL_messagebox.h:
+
+/usr/include/c++/16/bits/stl_heap.h:
 
 /usr/include/c++/16/ext/numeric_traits.h:
 
 /usr/include/c++/16/bits/stl_iterator.h:
-
-/usr/include/c++/16/bits/stl_algobase.h:
-
-/usr/include/c++/16/bits/stl_iterator_base_funcs.h:
 
 /usr/include/c++/16/bits/stl_iterator_base_types.h:
 
@@ -2377,13 +2418,11 @@ CMakeFiles/p.dir/src/window.cpp.o:
 
 /usr/include/c++/16/bits/streambuf.tcc:
 
-/usr/include/bits/types/__sigset_t.h:
-
-/usr/include/c++/16/iosfwd:
-
 /usr/include/SDL2/SDL_locale.h:
 
 /usr/include/c++/16/bits/streambuf_iterator.h:
+
+/usr/include/c++/16/bits/uniform_int_dist.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/tsxldtrkintrin.h:
 
@@ -2409,9 +2448,9 @@ CMakeFiles/p.dir/src/window.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/avx512ifmaintrin.h:
 
-/usr/include/c++/16/bits/ranges_util.h:
-
 /usr/include/c++/16/bits/locale_classes.h:
+
+/usr/include/c++/16/bits/ranges_util.h:
 
 /usr/include/c++/16/concepts:
 
@@ -2422,6 +2461,8 @@ CMakeFiles/p.dir/src/window.cpp.o:
 /usr/include/linux/sched/types.h:
 
 /usr/include/c++/16/cwchar:
+
+/usr/include/c++/16/pstl/glue_algorithm_defs.h:
 
 /usr/include/c++/16/debug/assertions.h:
 
@@ -2436,19 +2477,3 @@ CMakeFiles/p.dir/src/window.cpp.o:
 /usr/include/c++/16/exception:
 
 /usr/include/c++/16/ext/concurrence.h:
-
-/usr/include/bits/thread-shared-types.h:
-
-/usr/include/c++/16/ext/type_traits.h:
-
-/usr/include/c++/16/tr1/riemann_zeta.tcc:
-
-/usr/include/c++/16/initializer_list:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/tbmintrin.h:
-
-/usr/include/c++/16/iostream:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/include/prfchwintrin.h:
-
-/usr/include/c++/16/istream:

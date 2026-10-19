@@ -7,42 +7,42 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "PkgConfig::FMT::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-PkgConfig__FMT-e341078ee933f8ea1af1.json",
+					"jsonFile" : "target-PkgConfig__FMT-Debug-e341078ee933f8ea1af1.json",
 					"name" : "PkgConfig::FMT",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "PkgConfig::SDL2::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-PkgConfig__SDL2-919847dd8dfdb297c035.json",
+					"jsonFile" : "target-PkgConfig__SDL2-Debug-919847dd8dfdb297c035.json",
 					"name" : "PkgConfig::SDL2",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "PkgConfig::SDL2_IMAGE::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-PkgConfig__SDL2_IMAGE-218ef5e9c147a612ac7d.json",
+					"jsonFile" : "target-PkgConfig__SDL2_IMAGE-Debug-218ef5e9c147a612ac7d.json",
 					"name" : "PkgConfig::SDL2_IMAGE",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "PkgConfig::SDL2_MIXER::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-PkgConfig__SDL2_MIXER-0671913d024f2d7f4990.json",
+					"jsonFile" : "target-PkgConfig__SDL2_MIXER-Debug-0671913d024f2d7f4990.json",
 					"name" : "PkgConfig::SDL2_MIXER",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "PkgConfig::SDL2_TTF::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-PkgConfig__SDL2_TTF-8f623cfbacadf4834526.json",
+					"jsonFile" : "target-PkgConfig__SDL2_TTF-Debug-8f623cfbacadf4834526.json",
 					"name" : "PkgConfig::SDL2_TTF",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "box2d::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-box2d-1ee8d379c6859872ffad.json",
+					"jsonFile" : "target-box2d-Debug-1ee8d379c6859872ffad.json",
 					"name" : "box2d",
 					"projectIndex" : 0
 				}
@@ -60,7 +60,7 @@
 						5
 					],
 					"build" : ".",
-					"jsonFile" : "directory-.-b23a0b23c080df4d29ba.json",
+					"jsonFile" : "directory-.-Debug-b23a0b23c080df4d29ba.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.20"
@@ -73,7 +73,7 @@
 					]
 				}
 			],
-			"name" : "",
+			"name" : "Debug",
 			"projects" : 
 			[
 				{
@@ -102,7 +102,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "p::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-p-d9742af354fe425ea597.json",
+					"jsonFile" : "target-p-Debug-9f17600be9d57c94e77a.json",
 					"name" : "p",
 					"projectIndex" : 0
 				}

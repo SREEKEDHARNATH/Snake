@@ -26,7 +26,7 @@
 	"objects" : 
 	[
 		{
-			"jsonFile" : "codemodel-v2-be39f230594f1233dc5e.json",
+			"jsonFile" : "codemodel-v2-3d63bd426ca47e3be2d0.json",
 			"kind" : "codemodel",
 			"version" : 
 			{
@@ -44,7 +44,7 @@
 			}
 		},
 		{
-			"jsonFile" : "cache-v2-add5660fad4c75d52e50.json",
+			"jsonFile" : "cache-v2-55d8ddfed32881204779.json",
 			"kind" : "cache",
 			"version" : 
 			{
@@ -133,7 +133,7 @@
 				"responses" : 
 				[
 					{
-						"jsonFile" : "codemodel-v2-be39f230594f1233dc5e.json",
+						"jsonFile" : "codemodel-v2-3d63bd426ca47e3be2d0.json",
 						"kind" : "codemodel",
 						"version" : 
 						{
@@ -151,7 +151,7 @@
 						}
 					},
 					{
-						"jsonFile" : "cache-v2-add5660fad4c75d52e50.json",
+						"jsonFile" : "cache-v2-55d8ddfed32881204779.json",
 						"kind" : "cache",
 						"version" : 
 						{
@@ -171,6 +171,70 @@
 					{
 						"jsonFile" : "toolchains-v1-3545412e793278254f6e.json",
 						"kind" : "toolchains",
+						"version" : 
+						{
+							"major" : 1,
+							"minor" : 1
+						}
+					}
+				]
+			}
+		},
+		"client-vscode" : 
+		{
+			"query.json" : 
+			{
+				"requests" : 
+				[
+					{
+						"kind" : "cache",
+						"version" : 2
+					},
+					{
+						"kind" : "codemodel",
+						"version" : 2
+					},
+					{
+						"kind" : "toolchains",
+						"version" : 1
+					},
+					{
+						"kind" : "cmakeFiles",
+						"version" : 1
+					}
+				],
+				"responses" : 
+				[
+					{
+						"jsonFile" : "cache-v2-55d8ddfed32881204779.json",
+						"kind" : "cache",
+						"version" : 
+						{
+							"major" : 2,
+							"minor" : 0
+						}
+					},
+					{
+						"jsonFile" : "codemodel-v2-3d63bd426ca47e3be2d0.json",
+						"kind" : "codemodel",
+						"version" : 
+						{
+							"major" : 2,
+							"minor" : 11
+						}
+					},
+					{
+						"jsonFile" : "toolchains-v1-3545412e793278254f6e.json",
+						"kind" : "toolchains",
+						"version" : 
+						{
+							"major" : 1,
+							"minor" : 1
+						}
+					},
+					{
+						"jsonFile" : "cmakeFiles-v1-37e181704f5cbcce185e.json",
+						"kind" : "cmakeFiles",
 						"version" : 
 						{
 							"major" : 1,

@@ -5,6 +5,7 @@
 #include <SDL_error.h>
 #include <SDL_events.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 #include <SDL_keycode.h>
 #include <SDL_mouse.h>
 #include <SDL_render.h>
@@ -67,6 +68,8 @@ namespace window {
     void quit(){
         SDL_DestroyWindow(getWindow());
         SDL_DestroyRenderer(getRenderer());
+        Mix_CloseAudio();
+        Mix_Quit();
         TTF_Quit();
         IMG_Quit();
         SDL_Quit();
@@ -91,7 +94,7 @@ namespace window {
 }
 
 std::pair<bool, const char*> init(){
-    int img_flags=IMG_INIT_JPG;
+    int img_flags=IMG_INIT_JPG,sound_flags=MIX_INIT_MP3;
     if (SDL_Init(SDL_INIT_EVERYTHING)){
         return {false, SDL_GetError()};
     }
@@ -101,6 +104,10 @@ std::pair<bool, const char*> init(){
     if (TTF_Init()){
         return {false, TTF_GetError()};
     }
+    if ((Mix_Init(sound_flags) & sound_flags) != sound_flags){
+        return {false, Mix_GetError()};
+    }
+    Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
     window::getWindow() = SDL_CreateWindow(window::getTitle(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window::getW(), window::getH(), 0);
     if (!window::getWindow()){
         return {false, SDL_GetError()};

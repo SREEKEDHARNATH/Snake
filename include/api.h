@@ -4,6 +4,7 @@
 #include <SDL_render.h>
 #include <memory>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 
 namespace api {
     class image{
@@ -35,5 +36,25 @@ namespace api {
             int getX();
             int getY();
 
+    };
+    class music{
+        std::shared_ptr<Mix_Music> m;
+        public:
+            music(const char* name);
+            void play(bool loops=true);
+            void pause();
+            void resume();
+            void halt();
+            void setVolume(Uint8 vol);
+            std::shared_ptr<Mix_Music> getMusic();
+    };
+
+    class soundeffect{
+        std::shared_ptr<Mix_Chunk> c;
+        public:
+            soundeffect(const char* name);
+            void play(bool loops=false, int channel=-1);
+            void setVolume(Uint8 vol);
+            std::shared_ptr<Mix_Chunk> getChunk();
     };
 }
