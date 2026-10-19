@@ -1,0 +1,12 @@
+[
+  {
+    "label": "Run",
+    "command": "sh",
+    "args": [
+      "-c",
+      "cmake -B build && cmake --build build && clear && ./build/p"
+    ],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  }
+]
