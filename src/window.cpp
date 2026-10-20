@@ -32,6 +32,7 @@ class snake{
     std::mt19937 gen;
     std::uniform_int_distribution<int> distribX;
     std::uniform_int_distribution<int> distribY;
+    int sc=0;
     
     public:
         int dir[2]={1,0};
@@ -58,8 +59,20 @@ class snake{
             distribY = std::uniform_int_distribution<int>(0,lastY/32);
             
         }
+        void reset(){
+            sc=0;
+            size=3;
+            pos.clear();
+            int curX=0,curY=0;
+            pos.resize(size);
+            for (int i=0;i<size;i++){
+                auto& a = pos[i];
+                a.first=curX;
+                a.second=curY;
+                curX+=w;
+            }
+        }
         bool draw(api::image& head, api::image& body, api::image& apple, api::text& t, api::soundeffect se){
-            static int sc=0;
 
             if (pos[size-1].second < 0 || pos[size-1].second>window::getH()){return false;}
             if (pos[size-1].first < 0 || pos[size-1].first>window::getW()){return false;}
@@ -145,10 +158,19 @@ namespace window {
         api::image body("assets/images/body.jpg");
         api::image head("assets/images/head.jpg");
         api::image apple("assets/images/apple.jpg");
+        api::image playbutton("assets/images/Play-button.jpg");
+        playbutton.getRect().x=380;
+        playbutton.getRect().y=220;
+        playbutton.getRect().w=128*2;
+        playbutton.getRect().h=64*2;
+        playbutton.autoset=false;
         api::font f("assets/fonts/Montserrat-BoldItalic.ttf", 32);
         api::text t(f,"Score: 0");
         SDL_Event e;
 
+        SDL_Rect mouse;
+        mouse.w=1;
+        mouse.h=1;
         std::vector<std::shared_ptr<SDL_Texture>> themes;
         themes.resize(10);
         for (int i=0;i<10;i++){
@@ -159,7 +181,7 @@ namespace window {
 
         int th=1;
 
-        constexpr int mVol=30,seVol=20;
+        constexpr int mVol=70,seVol=40;
         api::music m("assets/music/bg.mp3");
         m.setVolume(mVol);
         api::soundeffect se("assets/sound-effect/apple.mp3");
@@ -167,9 +189,12 @@ namespace window {
         m.play();
         snake s;
 
+        api::soundeffect start("assets/sound-effect/play.mp3");
+        api::soundeffect over("assets/sound-effect/over.mp3");
+
         bool muted=false;
         bool running=true;
-
+        bool play =false;
         while (running){
             while (SDL_PollEvent(&e)) {
                 switch (e.type) {
@@ -193,7 +218,6 @@ namespace window {
 
                 }
             }
-
             if (keylistener::isDown(SDLK_ESCAPE)){
                 running=false;
             }
@@ -208,32 +232,33 @@ namespace window {
                     th++;
                 }
             }
-
-            if (keylistener::isDown(SDLK_UP)){
-                if (s.dir[0]){
-                    s.dir[1]=-1;
-                    s.dir[0]=0;
+            if (play){
+                if (keylistener::isDown(SDLK_UP)){
+                    if (s.dir[0]){
+                        s.dir[1]=-1;
+                        s.dir[0]=0;
+                    }
+                }
+                else if (keylistener::isDown(SDLK_DOWN)){
+                    if (s.dir[0]){
+                        s.dir[1]=1;
+                        s.dir[0]=0;
+                    }
+                }
+                else if (keylistener::isDown(SDLK_RIGHT)){
+                    if (s.dir[1]){
+                        s.dir[0]=1;
+                        s.dir[1]=0;
+                    }
+                }
+                else if (keylistener::isDown(SDLK_LEFT)){
+                    if (s.dir[1]){
+                        s.dir[0]=-1;
+                        s.dir[1]=0;
+                    }
                 }
             }
-            else if (keylistener::isDown(SDLK_DOWN)){
-                if (s.dir[0]){
-                    s.dir[1]=1;
-                    s.dir[0]=0;
-                }
-            }
-            else if (keylistener::isDown(SDLK_RIGHT)){
-                if (s.dir[1]){
-                    s.dir[0]=1;
-                    s.dir[1]=0;
-                }
-            }
-            else if (keylistener::isDown(SDLK_LEFT)){
-                if (s.dir[1]){
-                    s.dir[0]=-1;
-                    s.dir[1]=0;
-                }
-            }
-
+            
             if (keylistener::isPressed(SDLK_m)){
                 if (muted){
                     m.setVolume(mVol);
@@ -246,18 +271,36 @@ namespace window {
                     muted=true;
                 }
             }
-
+            
             SDL_RenderClear(getRenderer());
             SDL_RenderCopy(getRenderer(), themes[th-1].get(), NULL, NULL);
-            if (running){
+            if (play){
                 t.draw();
-                running = s.draw(body, head, apple, t, se);
+                play = s.draw(body, head, apple, t, se);
+                if (!play){
+                    over.play();
+                    s.reset();
+                    t.setText("Score: 0");
+                    s.dir[0]=1;
+                    s.dir[1]=0;
+                }
+            }
+            else {
+                mouse.x=mouselistener::getX();
+                mouse.y=mouselistener::getY();
+                playbutton.draw();
+                if (mouselistener::isPressed(SDL_BUTTON_LEFT)){
+                    play = SDL_HasIntersection(&mouse, &playbutton.getRect());
+                    if (play){
+                        start.play();
+                    }
+                }
             }
             SDL_RenderPresent(getRenderer());
 
             keylistener::update();
             mouselistener::update();
-            SDL_Delay(192);
+            SDL_Delay(play ? 192 : 16);
         }
     }
     void quit(){
