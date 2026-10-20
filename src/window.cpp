@@ -16,10 +16,12 @@
 #include <SDL_surface.h>
 #include <SDL_ttf.h>
 #include <SDL_video.h>
+#include <fstream>
 #include <iostream>
 #include <map>
 #include <memory>
 #include <random>
+#include <stdexcept>
 #include <string>
 #include <utility>
 #include <vector>
@@ -177,7 +179,12 @@ class slider{
                 }
             }
             c.draw();
-            return maxY-curY;
+            return curY-minY;
+        }
+        void setY(int val){
+            if (val <= maxY && val >= minY){
+                curY=val;
+            }
         }
 };
 namespace window {
@@ -215,12 +222,9 @@ namespace window {
 
         int mVol=70,seVol=40;
         api::music m("assets/music/bg.mp3");
-        m.setVolume(mVol);
         api::soundeffect se("assets/sound-effect/apple.mp3");
-        se.setVolume(seVol);
-        m.play();
         snake s;
-
+        
         api::soundeffect start("assets/sound-effect/play.mp3");
         api::soundeffect over("assets/sound-effect/over.mp3");
 
@@ -273,8 +277,37 @@ namespace window {
         txt[2].setY(50);
         txt.emplace_back(f, "press t again for to show play menu");
         txt[3].setY(75);
-
+        
         bool showtuturial=false;
+
+        std::ifstream file("save.conf");
+        if (file.is_open()){
+            std::string l;
+            int i=0;
+            while (std::getline(file, l)){
+                if (l.find(' ') == std::string::npos){
+                    try {
+                        int a = std::stoi(l);
+                        if (i==0){mVol=a;}
+                        else if(i==1){seVol=a;}
+                        else if(i==2){muted=(bool)a;}
+                        i++;
+                    }
+                    catch (std::invalid_argument e){}
+                    catch (std::out_of_range e){}
+                }
+            }
+        }
+        m.play();
+        m.setVolume(mVol);
+        se.setVolume(seVol);
+        start.setVolume(seVol);
+        over.setVolume(seVol);
+        if (muted){
+            m.setVolume(0);
+        }
+        sl.setY(mVol+200);
+        sle.setY(seVol+50);
         while (running){
             while (SDL_PollEvent(&e)) {
                 switch (e.type) {
@@ -346,6 +379,7 @@ namespace window {
                     start.setVolume(seVol);
                     over.setVolume(seVol);
                     muted=false;
+                    m.play();
                 }
                 else {
                     m.setVolume(0);
@@ -353,6 +387,7 @@ namespace window {
                     start.setVolume(0);
                     over.setVolume(0);
                     muted=true;
+                    m.halt();
                 }
             }
             if (keylistener::isPressed(SDLK_t)){
@@ -415,8 +450,6 @@ namespace window {
                 else {
                     mouse.x=mouselistener::getX();
                     mouse.y=mouselistener::getY();
-                    mouse.w=1;
-                    mouse.h=1;
                     if (muted){
                         mt.draw();
                         if (SDL_HasIntersection(&mouse, &mt.getRect()) && mouselistener::isPressed(SDL_BUTTON_LEFT)){
@@ -424,7 +457,8 @@ namespace window {
                             se.setVolume(seVol);
                             start.setVolume(seVol);
                             over.setVolume(seVol);
-                            muted=!muted;
+                            muted=false;
+                            m.play();
                         }
                     }
                     else {
@@ -434,7 +468,8 @@ namespace window {
                             se.setVolume(0);
                             start.setVolume(0);
                             over.setVolume(0);
-                            muted=!muted;
+                            muted=true;
+                            m.halt();
                         }
                     }
                     playbutton.draw();
@@ -445,16 +480,18 @@ namespace window {
                         }
                     }
                     mu.draw();
+                    mVol=sl.draw(line, circle, mouse, tex);
+                    seVol=sle.draw(line, circle, mouse, tex);
                     if (muted){
-                        mVol=sl.draw(line, circle, mouse, tex);
                     }
                     else {
-                        mVol=sl.draw(line, circle, mouse, tex);
                         m.setVolume(mVol);
+                        se.setVolume(seVol);
+                        start.setVolume(seVol);
+                        over.setVolume(seVol);
                     }
     
                     su.draw();
-                    seVol=sle.draw(line, circle, mouse, tex);
                     start.setVolume(seVol);
                     over.setVolume(seVol);
                     se.setVolume(seVol);
@@ -465,6 +502,12 @@ namespace window {
             keylistener::update();
             mouselistener::update();
             SDL_Delay(play ? 192 : 16);
+        }
+        std::ofstream fi("save.conf", std::ios_base::trunc);
+        if (fi.is_open()){
+            fi << std::to_string(mVol) << "\n";
+            fi << std::to_string(seVol) << "\n";
+            fi << std::to_string(muted);
         }
         SDL_DestroyTexture(tex);
     }

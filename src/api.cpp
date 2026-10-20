@@ -132,7 +132,7 @@ namespace api {
 
     void music::halt(){
         if (m.get()){
-            if (!Mix_PlayingMusic()){
+            if (Mix_PlayingMusic()){
                 Mix_HaltMusic();
             }
         }

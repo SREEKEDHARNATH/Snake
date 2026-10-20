@@ -337,11 +337,15 @@ CMakeFiles/p.dir/src/window.cpp.o: \
  /usr/include/SDL2/SDL_mixer.h /usr/include/SDL2/SDL_mouse.h \
  /usr/include/SDL2/SDL_pixels.h /usr/include/SDL2/SDL_scancode.h \
  /usr/include/SDL2/SDL_surface.h /usr/include/SDL2/SDL_ttf.h \
- /usr/include/SDL2/SDL_video.h /usr/include/c++/16/iostream \
- /usr/include/c++/16/ostream /usr/include/c++/16/bits/ostream_print.h \
- /usr/include/c++/16/bits/ostream.tcc /usr/include/c++/16/istream \
- /usr/include/c++/16/bits/istream.tcc /usr/include/c++/16/map \
- /usr/include/c++/16/bits/stl_tree.h \
+ /usr/include/SDL2/SDL_video.h /usr/include/c++/16/fstream \
+ /usr/include/c++/16/istream /usr/include/c++/16/ostream \
+ /usr/include/c++/16/bits/ostream_print.h \
+ /usr/include/c++/16/bits/ostream.tcc \
+ /usr/include/c++/16/bits/istream.tcc /usr/include/c++/16/bits/codecvt.h \
+ /usr/include/c++/16/x86_64-pc-linux-gnu/bits/basic_file.h \
+ /usr/include/c++/16/x86_64-pc-linux-gnu/bits/c++io.h \
+ /usr/include/c++/16/bits/fstream.tcc /usr/include/c++/16/iostream \
+ /usr/include/c++/16/map /usr/include/c++/16/bits/stl_tree.h \
  /usr/include/c++/16/bits/node_handle.h \
  /usr/include/c++/16/bits/stl_map.h \
  /usr/include/c++/16/bits/stl_multimap.h /usr/include/c++/16/random \
