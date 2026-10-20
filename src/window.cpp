@@ -9,9 +9,11 @@
 #include <SDL_mixer.h>
 #include <SDL_keycode.h>
 #include <SDL_mouse.h>
+#include <SDL_pixels.h>
 #include <SDL_rect.h>
 #include <SDL_render.h>
 #include <SDL_scancode.h>
+#include <SDL_surface.h>
 #include <SDL_ttf.h>
 #include <SDL_video.h>
 #include <iostream>
@@ -159,11 +161,14 @@ class slider{
             line = {x, minY, 6, maxY-minY};
             curY=minY;
         }
-        int draw(api::image& lne,api::image& c, SDL_Rect& mouse){
+        int draw(api::image& lne,api::image& c, SDL_Rect& mouse, SDL_Texture* bluethingy){
             c.getRect().x=line.x-12;
             c.getRect().y=curY;
             lne.getRect()=line;
             lne.draw();
+            SDL_Rect dstrect = line;
+            dstrect.h=(maxY-curY);
+            SDL_RenderCopy(window::getRenderer(), bluethingy, NULL, &dstrect);
             if (mouselistener::isDown(SDL_BUTTON_LEFT)){
                 if (SDL_HasIntersection(&line, &mouse)){
                     if (mouse.y >= minY && mouse.y <= maxY){
@@ -191,7 +196,7 @@ namespace window {
         playbutton.getRect().w=128*2;
         playbutton.getRect().h=64*2;
         playbutton.autoset=false;
-        api::font f("assets/fonts/Montserrat-BoldItalic.ttf", 32);
+        api::font f("assets/fonts/Montserrat-BoldItalic.ttf", 24);
         api::text t(f,"Score: 0");
         SDL_Event e;
 
@@ -243,6 +248,33 @@ namespace window {
         mt.getRect().y=getH()-32;
         nmt.getRect()=mt.getRect();
 
+        SDL_Surface* surf = SDL_CreateRGBSurface(0, 32, 32, 16, 0,0,0,0x000000ff);
+        if (!surf){
+            std::cerr << SDL_GetError() << "\n";
+            return;
+        }
+        SDL_FillRect(surf,NULL, SDL_MapRGB(surf->format, 0, 0, 250));
+        SDL_Texture* tex = SDL_CreateTextureFromSurface(getRenderer(), surf);
+        SDL_FreeSurface(surf);
+        if (!tex){
+            std::cerr << SDL_GetError() << "\n";
+            return;
+        }
+
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<int> distrib = std::uniform_int_distribution<int>(1,10);
+
+        std::vector<api::text> txt;
+        txt.emplace_back(f, "press w,s to switch themes 0-9 also does it r to get random");
+        txt.emplace_back(f, "m for mute also button in bottom right, sliders for sound");
+        txt[1].setY(25);
+        txt.emplace_back(f, "arrow keys for movement of snake now click that play button");
+        txt[2].setY(50);
+        txt.emplace_back(f, "press t again for to show play menu");
+        txt[3].setY(75);
+
+        bool showtuturial=false;
         while (running){
             while (SDL_PollEvent(&e)) {
                 switch (e.type) {
@@ -323,6 +355,12 @@ namespace window {
                     muted=true;
                 }
             }
+            if (keylistener::isPressed(SDLK_t)){
+                showtuturial=!showtuturial;
+            }
+            if (keylistener::isPressed(SDLK_r)){
+                th = distrib(gen);
+            }
             if (keylistener::isPressed(SDLK_0)){
                 th=1;
             }
@@ -369,51 +407,58 @@ namespace window {
                 }
             }
             else {
-                mouse.x=mouselistener::getX();
-                mouse.y=mouselistener::getY();
-                mouse.w=1;
-                mouse.h=1;
-                if (muted){
-                    mt.draw();
-                    if (SDL_HasIntersection(&mouse, &mt.getRect()) && mouselistener::isPressed(SDL_BUTTON_LEFT)){
+                if (showtuturial){
+                    for (auto& tx : txt){
+                        tx.draw();
+                    }
+                }
+                else {
+                    mouse.x=mouselistener::getX();
+                    mouse.y=mouselistener::getY();
+                    mouse.w=1;
+                    mouse.h=1;
+                    if (muted){
+                        mt.draw();
+                        if (SDL_HasIntersection(&mouse, &mt.getRect()) && mouselistener::isPressed(SDL_BUTTON_LEFT)){
+                            m.setVolume(mVol);
+                            se.setVolume(seVol);
+                            start.setVolume(seVol);
+                            over.setVolume(seVol);
+                            muted=!muted;
+                        }
+                    }
+                    else {
+                        nmt.draw();
+                        if (SDL_HasIntersection(&mouse, &nmt.getRect()) && mouselistener::isPressed(SDL_BUTTON_LEFT)){
+                            m.setVolume(0);
+                            se.setVolume(0);
+                            start.setVolume(0);
+                            over.setVolume(0);
+                            muted=!muted;
+                        }
+                    }
+                    playbutton.draw();
+                    if (mouselistener::isPressed(SDL_BUTTON_LEFT)){
+                        play = SDL_HasIntersection(&mouse, &playbutton.getRect());
+                        if (play){
+                            start.play();
+                        }
+                    }
+                    mu.draw();
+                    if (muted){
+                        mVol=sl.draw(line, circle, mouse, tex);
+                    }
+                    else {
+                        mVol=sl.draw(line, circle, mouse, tex);
                         m.setVolume(mVol);
-                        se.setVolume(seVol);
-                        start.setVolume(seVol);
-                        over.setVolume(seVol);
-                        muted=!muted;
                     }
+    
+                    su.draw();
+                    seVol=sle.draw(line, circle, mouse, tex);
+                    start.setVolume(seVol);
+                    over.setVolume(seVol);
+                    se.setVolume(seVol);
                 }
-                else {
-                    nmt.draw();
-                    if (SDL_HasIntersection(&mouse, &nmt.getRect()) && mouselistener::isPressed(SDL_BUTTON_LEFT)){
-                        m.setVolume(0);
-                        se.setVolume(0);
-                        start.setVolume(0);
-                        over.setVolume(0);
-                        muted=!muted;
-                    }
-                }
-                playbutton.draw();
-                if (mouselistener::isPressed(SDL_BUTTON_LEFT)){
-                    play = SDL_HasIntersection(&mouse, &playbutton.getRect());
-                    if (play){
-                        start.play();
-                    }
-                }
-                mu.draw();
-                if (muted){
-                    mVol=sl.draw(line, circle, mouse);
-                }
-                else {
-                    mVol=sl.draw(line, circle, mouse);
-                    m.setVolume(mVol);
-                }
-
-                su.draw();
-                seVol=sle.draw(line, circle, mouse);
-                start.setVolume(seVol);
-                over.setVolume(seVol);
-                se.setVolume(seVol);
             }
             SDL_RenderPresent(getRenderer());
 
@@ -421,6 +466,7 @@ namespace window {
             mouselistener::update();
             SDL_Delay(play ? 192 : 16);
         }
+        SDL_DestroyTexture(tex);
     }
     void quit(){
         SDL_DestroyWindow(getWindow());
