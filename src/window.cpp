@@ -11,6 +11,7 @@
 #include <SDL_mouse.h>
 #include <SDL_rect.h>
 #include <SDL_render.h>
+#include <SDL_scancode.h>
 #include <SDL_ttf.h>
 #include <SDL_video.h>
 #include <iostream>
@@ -271,6 +272,37 @@ namespace window {
                     muted=true;
                 }
             }
+            if (keylistener::isPressed(SDLK_0)){
+                th=1;
+            }
+            else if(keylistener::isPressed(SDLK_1)){
+                th=2;
+            }
+            else if(keylistener::isPressed(SDLK_2)){
+                th=3;
+            }
+            else if(keylistener::isPressed(SDLK_3)){
+                th=4;
+            }
+            else if(keylistener::isPressed(SDLK_4)){
+                th=5;
+            }
+            else if(keylistener::isPressed(SDLK_5)){
+                th=6;
+            }
+            else if(keylistener::isPressed(SDLK_6)){
+                th=7;
+            }
+            else if(keylistener::isPressed(SDLK_7)){
+                th=8;
+            }
+            else if(keylistener::isPressed(SDLK_8)){
+                th=9;
+            }
+            else if(keylistener::isPressed(SDLK_9)){
+                th=10;
+            }
+            
             
             SDL_RenderClear(getRenderer());
             SDL_RenderCopy(getRenderer(), themes[th-1].get(), NULL, NULL);
