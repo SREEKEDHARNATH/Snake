@@ -9,13 +9,13 @@ Sound Effect(Game Over) by <a href="https://pixabay.com/users/tuomas_data-407536
 
 Sound Effect(Play) by <a href="https://pixabay.com/users/universfield-28281460/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=326133">Official Profile</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=326133">Pixabay</a>
 
-Theme 1 in pintrest from <a href="https://in.pinterest.com/pin/309481805666216158/">Davaadorj Gantumur</a>
+Theme 1 in <a href="https://in.pinterest.com/pin/873698396450976914/">pintrest</a>
 
 Theme 2 in pintrest from <a href="https://in.pinterest.com/pin/1126322188107584724/">jin</a>
 
-Theme 3 in pinterest from <a href="https://in.pinterest.com/pin/1018165428268950918/">lomono55</a>
+Theme 3 in <a href="https://in.pinterest.com/pin/799811215099707807/">Pintrest</a>
 
-Theme 4 in pintrest from <a href="https://in.pinterest.com/pin/889883207665408124/">Zoey</a>
+Theme 4 in <a href="https://in.pinterest.com/pin/949344796471847133/">Pintrest</a>
 
 Theme 5 in pintrest from <a href="https://in.pinterest.com/pin/425238389788354076/">maycat</a>
 

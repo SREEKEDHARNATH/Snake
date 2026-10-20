@@ -75,8 +75,8 @@ class snake{
         }
         bool draw(api::image& head, api::image& body, api::image& apple, api::text& t, api::soundeffect se){
 
-            if (pos[size-1].second < 0 || pos[size-1].second>window::getH()){return false;}
-            if (pos[size-1].first < 0 || pos[size-1].first>window::getW()){return false;}
+            if (pos[size-1].second+32 < 0 || pos[size-1].second+32>window::getH()){return false;}
+            if (pos[size-1].first+32 < 0 || pos[size-1].first+32>window::getW()){return false;}
             
             if (appledstrect.x==-100){
                 int ax= distribX(gen)*32;
@@ -149,6 +149,32 @@ class snake{
             return true;
         }
 };
+class slider{
+    int minY,maxY;
+    SDL_Rect line;
+    int curY;
+    public:
+        slider(int x, int mY, int maY) : minY(mY), maxY(maY)
+        {
+            line = {x, minY, 6, maxY-minY};
+            curY=minY;
+        }
+        int draw(api::image& lne,api::image& c, SDL_Rect& mouse){
+            c.getRect().x=line.x-12;
+            c.getRect().y=curY;
+            lne.getRect()=line;
+            lne.draw();
+            if (mouselistener::isDown(SDL_BUTTON_LEFT)){
+                if (SDL_HasIntersection(&line, &mouse)){
+                    if (mouse.y >= minY && mouse.y <= maxY){
+                        curY=mouse.y;
+                    }
+                }
+            }
+            c.draw();
+            return maxY-curY;
+        }
+};
 namespace window {
     void run(){
         auto i = init();
@@ -182,7 +208,7 @@ namespace window {
 
         int th=1;
 
-        constexpr int mVol=70,seVol=40;
+        int mVol=70,seVol=40;
         api::music m("assets/music/bg.mp3");
         m.setVolume(mVol);
         api::soundeffect se("assets/sound-effect/apple.mp3");
@@ -193,9 +219,30 @@ namespace window {
         api::soundeffect start("assets/sound-effect/play.mp3");
         api::soundeffect over("assets/sound-effect/over.mp3");
 
+        api::image line("assets/images/line.jpg");
+        api::image circle("assets/images/round.jpg");
+
+        api::text mu(f, "Music");
+        mu.setX(900);
+        mu.setY(170);
+        slider sl(950, 200, 300);
+
+        api::text su(f, "Sound");
+        su.setX(900);
+        su.setY(10);
+        slider sle(950, 50, 150);
+
         bool muted=false;
         bool running=true;
         bool play =false;
+
+        api::image mt("assets/images/muted.jpg");
+        api::image nmt("assets/images/not muted.jpg");
+        
+        mt.getRect().x=990;
+        mt.getRect().y=getH()-32;
+        nmt.getRect()=mt.getRect();
+
         while (running){
             while (SDL_PollEvent(&e)) {
                 switch (e.type) {
@@ -264,11 +311,15 @@ namespace window {
                 if (muted){
                     m.setVolume(mVol);
                     se.setVolume(seVol);
+                    start.setVolume(seVol);
+                    over.setVolume(seVol);
                     muted=false;
                 }
                 else {
                     m.setVolume(0);
                     se.setVolume(0);
+                    start.setVolume(0);
+                    over.setVolume(0);
                     muted=true;
                 }
             }
@@ -320,6 +371,28 @@ namespace window {
             else {
                 mouse.x=mouselistener::getX();
                 mouse.y=mouselistener::getY();
+                mouse.w=1;
+                mouse.h=1;
+                if (muted){
+                    mt.draw();
+                    if (SDL_HasIntersection(&mouse, &mt.getRect()) && mouselistener::isPressed(SDL_BUTTON_LEFT)){
+                        m.setVolume(mVol);
+                        se.setVolume(seVol);
+                        start.setVolume(seVol);
+                        over.setVolume(seVol);
+                        muted=!muted;
+                    }
+                }
+                else {
+                    nmt.draw();
+                    if (SDL_HasIntersection(&mouse, &nmt.getRect()) && mouselistener::isPressed(SDL_BUTTON_LEFT)){
+                        m.setVolume(0);
+                        se.setVolume(0);
+                        start.setVolume(0);
+                        over.setVolume(0);
+                        muted=!muted;
+                    }
+                }
                 playbutton.draw();
                 if (mouselistener::isPressed(SDL_BUTTON_LEFT)){
                     play = SDL_HasIntersection(&mouse, &playbutton.getRect());
@@ -327,6 +400,20 @@ namespace window {
                         start.play();
                     }
                 }
+                mu.draw();
+                if (muted){
+                    mVol=sl.draw(line, circle, mouse);
+                }
+                else {
+                    mVol=sl.draw(line, circle, mouse);
+                    m.setVolume(mVol);
+                }
+
+                su.draw();
+                seVol=sle.draw(line, circle, mouse);
+                start.setVolume(seVol);
+                over.setVolume(seVol);
+                se.setVolume(seVol);
             }
             SDL_RenderPresent(getRenderer());
 
