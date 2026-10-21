@@ -312,7 +312,8 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4
 			]
 		}
 	],
@@ -410,7 +411,8 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4
 			]
 		}
 	],
@@ -444,6 +446,16 @@
 			],
 			"compileGroupIndex" : 0,
 			"path" : "src/main.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"compileGroupIndex" : 0,
+			"path" : "src/utils.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

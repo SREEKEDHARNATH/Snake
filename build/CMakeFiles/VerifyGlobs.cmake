@@ -7,6 +7,7 @@ set(OLD_GLOB
   "/home/sree/12-weeks-projects/Snake/src/api.cpp"
   "/home/sree/12-weeks-projects/Snake/src/listeners.cpp"
   "/home/sree/12-weeks-projects/Snake/src/main.cpp"
+  "/home/sree/12-weeks-projects/Snake/src/utils.cpp"
   "/home/sree/12-weeks-projects/Snake/src/window.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")

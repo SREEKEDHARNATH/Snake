@@ -1,6 +1,7 @@
 #include "listeners.h"
 #include <SDL_events.h>
 #include <SDL_keyboard.h>
+#include <SDL_mouse.h>
 #include <SDL_scancode.h>
 #include <SDL_stdinc.h>
 
@@ -58,6 +59,10 @@ namespace mouselistener {
     void reg(SDL_MouseWheelEvent w){
         scrlx=w.x;
         scrly=w.y;
+        if (w.direction==SDL_MOUSEWHEEL_FLIPPED){
+            scrlx*=-1;
+            scrly*=-1;
+        }
     }
 
     bool isPressed(Uint8 b){
