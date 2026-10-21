@@ -2,6 +2,7 @@
 The classical snake game
 
 So welcome i will be guiding you in here.
+make sure assets folder is same in current directory and install sdl_mixer.
 So warning you may not like this code as i will admit its structure,methods,code density is bad.
 And readme is bad first time, If you thought of any suspicion in commits as progression got low first time gui so taken a lot of time and started sdl 1 and a half weeks before this so pretty bad.
 Credits at top mainly for sound's and wallpapers.
