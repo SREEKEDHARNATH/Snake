@@ -16,6 +16,7 @@
 #include <SDL_surface.h>
 #include <SDL_ttf.h>
 #include <SDL_video.h>
+#include <cstddef>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -187,6 +188,54 @@ class slider{
             }
         }
 };
+SDL_Texture* getRgb(Uint8 r,Uint8 g,Uint8 b){
+    SDL_Surface* surf = SDL_CreateRGBSurface(0, 32, 32, 16, 0,0,0,0x000000ff);
+    if (!surf){
+        std::cerr << SDL_GetError() << "\n";
+        return NULL;
+    }
+    SDL_FillRect(surf,NULL, SDL_MapRGB(surf->format, r,g,b));
+    SDL_Texture* tex = SDL_CreateTextureFromSurface(window::getRenderer(), surf);
+    SDL_FreeSurface(surf);
+    if (!tex){
+        std::cerr << SDL_GetError() << "\n";
+        return NULL;
+    }
+    return tex;
+}
+class checkbox{
+    std::shared_ptr<SDL_Texture> checked;
+    std::shared_ptr<SDL_Texture> unchecked;
+    SDL_Rect dstrect;
+
+    bool check;
+    public:
+        checkbox(int x,int y){
+            check=false;
+            api::image ch("assets/images/filled-box.jpg");
+            api::image uch("assets/images/unfilled-box.jpg");
+            
+            checked=ch.getTex();
+            unchecked=uch.getTex();
+            
+            dstrect.x=x;
+            dstrect.y=y;
+            dstrect.w=24;
+            dstrect.h=24;
+        }
+        bool draw(SDL_Rect& mouse){
+            if (check){
+                SDL_RenderCopy(window::getRenderer(), checked.get(), NULL, &dstrect);
+            }
+            else {
+                SDL_RenderCopy(window::getRenderer(), unchecked.get(), NULL, &dstrect);
+            }
+            if (SDL_HasIntersection(&mouse, &dstrect) && mouselistener::isPressed(SDL_BUTTON_LEFT)){
+                check=!check;
+            }
+            return check;
+        }
+};
 namespace window {
     void run(){
         auto i = init();
@@ -252,16 +301,47 @@ namespace window {
         mt.getRect().y=getH()-32;
         nmt.getRect()=mt.getRect();
 
-        SDL_Surface* surf = SDL_CreateRGBSurface(0, 32, 32, 16, 0,0,0,0x000000ff);
-        if (!surf){
-            std::cerr << SDL_GetError() << "\n";
-            return;
+        std::vector<std::shared_ptr<SDL_Texture>> colors(10);
+        
+        for (int i=0;i<7;i++){
+            Uint8 r=0,g=0,b=0;
+            if (i==0){
+                r=255;
+                g=200;
+            }
+            else if(i==1){
+                g=255;
+            }
+            else if(i==2){
+                b=255;
+                r=200;
+            }
+            else if(i==3){
+                r=255;
+                g=255;
+            }
+            else if(i==4){
+                r=255;
+                b=255;
+            }
+            else if(i==5){
+                g=255;
+                b=255;
+            }
+            else {
+                r=20;
+                g=200;
+                b=200;
+            }
+            
+            SDL_Texture* tex = getRgb(r,g,b);
+            if (!tex){
+                return;
+            }
+            colors[i].reset(tex, SDL_DestroyTexture);
         }
-        SDL_FillRect(surf,NULL, SDL_MapRGB(surf->format, 0, 0, 250));
-        SDL_Texture* tex = SDL_CreateTextureFromSurface(getRenderer(), surf);
-        SDL_FreeSurface(surf);
+        SDL_Texture* tex = getRgb(0, 0, 255);
         if (!tex){
-            std::cerr << SDL_GetError() << "\n";
             return;
         }
 
@@ -280,6 +360,7 @@ namespace window {
         
         bool showtuturial=false;
 
+        bool showSolidColor=false;
         std::ifstream file("save.conf");
         if (file.is_open()){
             std::string l;
@@ -308,6 +389,10 @@ namespace window {
         }
         sl.setY(mVol+200);
         sle.setY(seVol+50);
+        checkbox ch(780, 520);
+        api::text taxt(f, "Show Solid Color");
+        taxt.setY(490);
+        taxt.setX(700);
         while (running){
             while (SDL_PollEvent(&e)) {
                 switch (e.type) {
@@ -331,17 +416,19 @@ namespace window {
 
                 }
             }
+            mouse.x=mouselistener::getX();
+            mouse.y=mouselistener::getY();
+            
             if (keylistener::isDown(SDLK_ESCAPE)){
                 running=false;
             }
-
             if (keylistener::isPressed(SDLK_s)){
                 if (th>1){
                     th--;
                 }
             }
             if (keylistener::isPressed(SDLK_w)){
-                if (th<10){
+                if (th<(showSolidColor ? 7 : 10)){
                     th++;
                 }
             }
@@ -394,7 +481,7 @@ namespace window {
                 showtuturial=!showtuturial;
             }
             if (keylistener::isPressed(SDLK_r)){
-                th = distrib(gen);
+                th = std::min(7,distrib(gen));
             }
             if (keylistener::isPressed(SDLK_0)){
                 th=1;
@@ -418,18 +505,24 @@ namespace window {
                 th=7;
             }
             else if(keylistener::isPressed(SDLK_7)){
-                th=8;
+                if (!showSolidColor){
+                    th=8;
+                }
             }
             else if(keylistener::isPressed(SDLK_8)){
-                th=9;
+                if (!showSolidColor){
+                    th=9;
+                }
             }
             else if(keylistener::isPressed(SDLK_9)){
-                th=10;
+                if (!showSolidColor){
+                    th=10;
+                }
             }
             
             
             SDL_RenderClear(getRenderer());
-            SDL_RenderCopy(getRenderer(), themes[th-1].get(), NULL, NULL);
+            SDL_RenderCopy(getRenderer(), showSolidColor ? colors[std::min(6,th-1)].get() : themes[th-1].get(), NULL, NULL);
             if (play){
                 t.draw();
                 play = s.draw(body, head, apple, t, se);
@@ -448,8 +541,6 @@ namespace window {
                     }
                 }
                 else {
-                    mouse.x=mouselistener::getX();
-                    mouse.y=mouselistener::getY();
                     if (muted){
                         mt.draw();
                         if (SDL_HasIntersection(&mouse, &mt.getRect()) && mouselistener::isPressed(SDL_BUTTON_LEFT)){
@@ -496,6 +587,8 @@ namespace window {
                     over.setVolume(seVol);
                     se.setVolume(seVol);
                 }
+                taxt.draw();
+                showSolidColor=ch.draw(mouse);
             }
             SDL_RenderPresent(getRenderer());
 
